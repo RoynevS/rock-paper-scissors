@@ -1,18 +1,18 @@
-const choices = ["Rock", "Paper", "Scissors"];
-
 const getRandomNumber = arr => {
   return Math.floor(Math.random() * arr.length)
 }
 
-// TODO: put choices in this function to not have it global
-const getComputerChoice = () =>  choices[getRandomNumber(choices)];
+const getComputerChoice = () =>  {
+  const choices = ["Rock", "Paper", "Scissors"];
+  return choices[getRandomNumber(choices)]
+};
 
 const playRound = (playerSelection, computerSelection) => {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
 
   if (playerSelection === computerSelection) {
-    return 0
+    return "Draw! Play Again"
   } else if (playerSelection === "rock" && computerSelection === "paper") {
     return "You lose! Paper beats Rock";
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
@@ -28,32 +28,40 @@ const playRound = (playerSelection, computerSelection) => {
   }
 }
 
-// play best of five
-// keeps score
-// reports winner after every round
-// reports winner at the end
-// takes user input
+const declareWinner = (playerScore, computerScore) => {
+  if (playerScore > computerScore) {
+    return `You win with a score of ${playerScore} to ${computerScore}.`
+  } else {
+    return `You lose with a score of ${playerScore} to ${computerScore}.`
+  }
+}
 
 const game = () => {
   let playerScore = 0;
   let computerScore = 0;
+  let roundsPlayed = 0;
 
-  for (let i = 1; i <= 5; i++) {
+  while (roundsPlayed < 5) {
     playerSelection = prompt('Choose between "Rock", "Paper" and "Scissors":');
     computerSelection = getComputerChoice();
     const winner = playRound(playerSelection, computerSelection);
 
-    if (winner === 0) {
-      console.log("Draw")
-    } else if (winner.includes("lose")) {
+    if (winner.includes("lose")) {
       computerScore++
+      roundsPlayed++
     } else if (winner.includes("win")) {
       playerScore++
+      roundsPlayed++
     }
-    
-    console.log(winner)
-    console.log(`Player: ${playerScore}, Computer: ${computerScore}`)
+
+    console.log(winner);
+    console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
+
+    if (playerScore === 3 || computerScore === 3) {
+      break
+    }
   }
+  console.log(declareWinner(playerScore, computerScore))
 }
 
 game()
