@@ -35,10 +35,24 @@ const playRound = (playerSelection, computerSelection) => {
 // takes user input
 
 const game = () => {
+  let playerScore = 0;
+  let computerScore = 0;
+
   for (let i = 1; i <= 5; i++) {
     playerSelection = prompt('Choose between "Rock", "Paper" and "Scissors":');
     computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection)) 
+    const winner = playRound(playerSelection, computerSelection);
+
+    if (winner === 0) {
+      console.log("Draw")
+    } else if (winner.includes("lose")) {
+      computerScore++
+    } else if (winner.includes("win")) {
+      playerScore++
+    }
+    
+    console.log(winner)
+    console.log(`Player: ${playerScore}, Computer: ${computerScore}`)
   }
 }
 
