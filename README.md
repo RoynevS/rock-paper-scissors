@@ -1,1 +1,2 @@
 # rock-paper-scissors
+Basic rock-paper-scissor game meant to be played in the console. It is used to practise basic JavaScript. This includes ceating variables, creating functions, using conditionals and understanding scope. On top of that it practices problem solving aswell as how to handle bugs while creating a program.
