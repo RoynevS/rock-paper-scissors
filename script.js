@@ -1,3 +1,8 @@
+const btnRock = document.querySelector("#rock");
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+
+
 const getRandomNumber = arr => {
   return Math.floor(Math.random() * arr.length)
 }
@@ -36,25 +41,21 @@ const declareWinner = (playerScore, computerScore) => {
   }
 }
 
-const game = () => {
-  let playerScore = 0;
-  let computerScore = 0;
+btnRock.addEventListener("click", () => {
+  console.log(playRound("rock", getComputerChoice()));
+});
 
-  // while (playerScore < 3 && computerScore < 3) {
-  //   playerSelection = prompt('Choose between "Rock", "Paper" and "Scissors":');
-  //   computerSelection = getComputerChoice();
+btnPaper.addEventListener("click", () => {
+  console.log(playRound("paper", getComputerChoice()));
+});
+
+btnScissors.addEventListener("click", () => {
+  console.log(playRound("scissors", getComputerChoice()));
+});
+
+// const game = () => {
   //   const winner = playRound(playerSelection, computerSelection);
-
-  //   if (winner.includes("lose")) {
-  //     computerScore++
-  //   } else if (winner.includes("win")) {
-  //     playerScore++
-  //   }
-
   //   console.log(winner);
-  //   console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
-  // }
-  console.log(declareWinner(playerScore, computerScore))
-}
+// }
 
-game()
+// game()
