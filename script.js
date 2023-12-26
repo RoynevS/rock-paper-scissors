@@ -40,20 +40,20 @@ const game = () => {
   let playerScore = 0;
   let computerScore = 0;
 
-  while (playerScore < 3 && computerScore < 3) {
-    playerSelection = prompt('Choose between "Rock", "Paper" and "Scissors":');
-    computerSelection = getComputerChoice();
-    const winner = playRound(playerSelection, computerSelection);
+  // while (playerScore < 3 && computerScore < 3) {
+  //   playerSelection = prompt('Choose between "Rock", "Paper" and "Scissors":');
+  //   computerSelection = getComputerChoice();
+  //   const winner = playRound(playerSelection, computerSelection);
 
-    if (winner.includes("lose")) {
-      computerScore++
-    } else if (winner.includes("win")) {
-      playerScore++
-    }
+  //   if (winner.includes("lose")) {
+  //     computerScore++
+  //   } else if (winner.includes("win")) {
+  //     playerScore++
+  //   }
 
-    console.log(winner);
-    console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
-  }
+  //   console.log(winner);
+  //   console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
+  // }
   console.log(declareWinner(playerScore, computerScore))
 }
 
