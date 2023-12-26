@@ -1,11 +1,13 @@
-const btnRock = document.querySelector("#rock");
-const btnPaper = document.querySelector("#paper");
-const btnScissors = document.querySelector("#scissors");
+const buttons = document.querySelectorAll(".play-btn");
+const winnerBox = document.querySelector(".winner-box");
+const scoreBox = document.querySelector(".score");
 
+let playerScore = 0;
+let computerScore = 0;
 
 const getRandomNumber = arr => {
   return Math.floor(Math.random() * arr.length)
-}
+};
 
 const getComputerChoice = () =>  {
   const choices = ["Rock", "Paper", "Scissors"];
@@ -31,7 +33,7 @@ const playRound = (playerSelection, computerSelection) => {
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
     return "You win! Scissors beats Paper";
   }
-}
+};
 
 const declareWinner = (playerScore, computerScore) => {
   if (playerScore > computerScore) {
@@ -39,23 +41,62 @@ const declareWinner = (playerScore, computerScore) => {
   } else {
     return `You lose with a score of ${playerScore} to ${computerScore}.`
   }
+};
+
+const displayScore = (playerScore, computerScore) => {
+  if (playerScore === 5 || computerScore === 5) {
+    scoreBox.innerText = declareWinner(playerScore, computerScore);
+  } else {
+    scoreBox.innerText = `${playerScore} : ${computerScore}`;
+  }
+};
+
+const removeListener = () => {
+  buttons.forEach((button) => {
+    button.removeEventListener("click", playGame);
+  })
 }
 
-btnRock.addEventListener("click", () => {
-  console.log(playRound("rock", getComputerChoice()));
-});
+const resetGame = () => {
+  const resetBtn = document.createElement("button");
+  resetBtn.innerText = "Reset";
+  scoreBox.appendChild(resetBtn);
+  resetBtn.addEventListener("click", () => {
+    playerScore = 0;
+    computerScore = 0;
+    scoreBox.removeChild(resetBtn);
+    winnerBox.innerText = "";
+    scoreBox.innerText = "";
+    game()
+  });
+};
 
-btnPaper.addEventListener("click", () => {
-  console.log(playRound("paper", getComputerChoice()));
-});
+const playGame = (event) => {
+  const computerSelection = getComputerChoice();
+  const playerSelection = event.target.id;
 
-btnScissors.addEventListener("click", () => {
-  console.log(playRound("scissors", getComputerChoice()));
-});
+  const winner = playRound(playerSelection, computerSelection);
+  winnerBox.innerText = winner;
 
-// const game = () => {
-  //   const winner = playRound(playerSelection, computerSelection);
-  //   console.log(winner);
-// }
+  if (winner.includes("lose")) {
+    computerScore++;
+  } else if (winner.includes("win")) {
+    playerScore++;
+  }
 
-// game()
+  displayScore(playerScore, computerScore);
+
+  if (playerScore === 5 || computerScore === 5) {
+    declareWinner(playerScore, computerScore);
+    removeListener()
+    resetGame();
+  }
+};
+
+const game = () => {
+  buttons.forEach((button) => {
+    button.addEventListener("click", playGame);
+  });
+}
+
+game();
